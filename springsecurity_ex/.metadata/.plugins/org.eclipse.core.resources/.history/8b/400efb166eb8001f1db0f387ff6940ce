@@ -1,0 +1,5 @@
+package org.edu.demo1.api.common.controller;
+
+public class ErrorController {
+
+}

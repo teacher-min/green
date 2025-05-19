@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<!--/* 타임리프의 th 속성 사용을 위한 네임스페이스 */-->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!--/* <head> 태그를 조각(fragment)으로 만들기, 매개변수 title 선언하기 */-->
+<head th:fragment="head-frag(title)">
+
+<meta charset="UTF-8">
+
+<!--/* 매개변수 title 로 전달된 문자열이 없으면 'Home' 사용 */-->
+<!--/*
+  <title th:text="${#strings.isEmpty(title) ? 'Home' : title}"></title>
+    or
+  <title th:text="${#strings.defaultString(title, 'Home')}"></title>
+*/-->
+<title th:text="${#strings.defaultString(title, 'Home')}"></title>
+
+<!--/* 정적 자원 확인하기 */-->
+<link rel="stylesheet" href="/static/css/home1.css">
+
+<!--/* th 속성을 이용한 정적 자원 확인하기 */-->
+<link rel="stylesheet" th:href="@{/static/css/home2.css}">
+
+</head>
+
+<body>
+<div th:text="${#numbers.formatInteger(10,3)}"></div>
+<div th:text="${#numbers.formatInteger(1000,3,'POINT')}"></div>
+<div th:text="${#numbers.formatDecimal(1.5,3,2)}"></div>
+  <!--/* 정적 자원 확인하기 */-->
+  <img src="/static/images/avatar.png" class="avatar">
+  
+  <!--/* th 속성을 이용한 정적 자원 확인하기 */-->
+  <img th:src="@{/static/images/avatar.png}" class="avatar">
+  
+  <hr>
+  
+  <a th:href="@{/list.do}">게시판</a>
+
+  <!--/* <footer> 태그를 조각으로 만들기 */-->
+  <footer th:fragment="footer-frag">
+    &copy; MyHome. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+MyBatis(Google) (구 iBatis : Apache Project)
+  1. 기본 설정 : xml 기반 - 마이바티스 프레임워크 사용을 위한 환경 설정
+  2. 매퍼 설정 : xml 기반 - SQL 문 작성, Java 쪽에서 실행할 SQL 문을 매핑
+  3. DAO 측에서 동작
+
+MyBatis XML 사용을 위한 라이브러리 준비
+  1. google 에서 검색 : mybatis editor google code
+    (https://code.google.com/archive/a/eclipselabs.org/p/mybatiseditor)
+  2. Downloads
+    - 첫 번째 항목 : org.eclipselabs.mybatiseditor.ui_1.1.0.201207062137.jar
+  3. STS or Eclipse 디렉터리에 있는 plugins 에 가져다 두고 재시작
+
+MyBatis 동작
+  1. SqlSessionFactoryBuilder (스프링에서는 생성하지 않음)
+    mybatis-config.xml 참조 (프로젝트에 1개만 존재)
+      DB 접속 정보
+      매퍼 경로 정보
+  2. SqlSessionFactory (스프링 : SqlSessionFactoryBean)
+    mapper.xml (패키지 단위로 여러 개 존재(테이블 당 존재))
+      SQL 문
+        - 인자, 반환 설정
+  3. SqlSession (스프링 : SqlSessionTemplate)
+    매퍼의 SQL문을 실행하는 Java 객체
+      - insert(), update(), delete(), selectList(), selectOne()
+
+Spring 디펜던시
+  1. MyBatis
+  2. MyBatis Spring
+  3. Spring JDBC
+  4. HikariCP : Connection Pool 라이브러리(Connection을 미리 만들어 두는 것)
+    - Java Connection Pool API : javax.sql.DataSource
+    - Hikari Connection Pool API : com.zaxxer.hikari.HikariDataSource

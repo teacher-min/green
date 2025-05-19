@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<!--
+    String 내장 객체
+
+    1. String.length 속성
+        → 문자열의 길이 반환
+
+    2. String.prototype.at(index)
+        → index 위치의 UTF-16 String 반환(마이너스 index 가능)
+
+    3. String.prototype.charAt(index)
+        → index 위치의 유니코드 단일 문자 반환
+
+    4. String.prototype.concat(string2, string3[, ..., stringN])
+        → 전달된 모든 문자열을 호출 문자열에 붙인 새로운 문자열 반환 (+ 또는 += 연산자의 성능이 concat() 보다 더 우수하다.)
+
+    5. String.prototype.indexOf(searchValue[, fromIndex])
+        → 전달된 searchValue(문자열)와 일치하는 첫 번째 index 반환, 없으면 -1 반환
+        → 옵션 fromIndex : 문자열에서 찾기 시작하는 위치 index, 기본값은 0
+
+    6. String.prototype.lastIndexOf(searchValue[, fromIndex])
+        → 전달된 문자열과 일치하는 마지막 index 반환, 없으면 -1 반환
+        → 옵션 fromIndex : 탐색의 시작점으로 사용할 index, 기본값은 +Infinity, fromIndex >= str.length 인 경우 모든 문자열을 탐색
+
+    7. String.prototype.startsWith(searchString[, position])
+        → 전달된 searchString으로 시작하면 true 아니면 false 반환
+        → 옵션 position : searchString을 찾기 시작할 위치 index, 기본값은 0
+
+    8. String.prototype.endsWith(searchString[, endPosition])
+        → 전달된 searchString으로 끝나면 true 아니면 false 반환
+        → 옵션 endPosition : searchString이 발견될 것으로 예상되는 끝 위치(searchString의 마지막 문자의 인덱스에 1을 더한 값), 기본값은 str.length
+
+    9. String.prototype.includes(searchString[, position])
+        → 전달된 searchString을 포함하고 있으면 true 아니면 false 반환
+        → 옵션 position : searchString을 찾기 시작할 위치 index, 기본값은 0
+
+    10. String.prototype.match(regexp)
+        → 전달된 정규식과 일치하는 요소들을 Array로 반환, 일치하지 않으면 null 반환
+    
+    11. String.prototype.search(regexp)
+        → 전달된 정규식과 일치하는 첫 번째 항목의 인덱스를 반환, 일치하지 않으면 -1 반환
+
+    12. String.prototype.padStart(targetLength [, padString])
+        → 현재 문자열의 시작을 padString으로 채워 주어진 targetLength를 만족하는 새로운 문자열 반환
+        → 옵션 padString : 현재 문자열에 채워넣을 다른 문자열, 기본값은 " "(유니코드 U+0020)
+
+    13. String.prototype.padEnd(targetLength [, padString])
+        → 현재 문자열의 끝을 padString으로 채워 주어진 targetLength를 만족하는 새로운 문자열 반환
+        → 옵션 padString : 현재 문자열에 채워넣을 다른 문자열, 기본값은 " "(유니코드 U+0020)
+
+    14. String.prototype.replace(pattern, replacement)
+        → 전달된 pattern(문자열 또는 정규식)과 일치하는 항목 일부 또는 전체가 replacement로 대치된 새로운 문자열 반환
+        → pattern이 문자열이라면 첫 번째 일치 항목만 replacement로 대치
+    
+    15. String.prototype.replaceAll(pattern, replacement)
+        → 전달된 pattern(문자열 또는 정규식)과 일치하는 항목 전체가 replacement로 대치된 새로운 문자열 반환
+        → pattern이 정규식이라면 전역(g) 플래그가 설정되어 있어야 함
+
+    16. String.prototype.slice(indexStart)
+        → indexStart를 포함해서 문자열 끝까지 반환
+        String.prototype.slice(indexStart, indexEnd)
+        → indexStart를 포함하고 indexEnd를 제외한 문자열을 반환
+        설명)
+        → indexStart < 0 인 경우 max(indexStart + str.length, 0)의 결과값이 사용됨
+        → indexStart가 생략되거나, 정의되지 않거나, 숫자로 변환할 수 없는 경우 0으로 처리함
+        → indexEnd < 0 인 경우 max(indexEnd + str.length, 0)의 결과값이 사용됨
+        → indexEnd가 생략되거나, 정의되지 않거나, 숫자로 변환할 수 없는 경우 또는 indexEnd >= str.length 이면 끝까지 추출함
+        → indexStart >= indexEnd 인 경우 빈 문자열을 반환
+  
+    17. String.prototype.substring(indexStart[, indexEnd])
+        → indexStart를 포함하고 indexEnd를 제외한 문자열을 반환
+        → 옵션 indexEnd : 생략하면 문자열의 끝까지 반환
+        설명)
+        → indexStart와 indexEnd는 0보다 작거나 NaN인 경우 0으로 처리
+        → indexStart와 indexEnd는 str.length 보다 큰 경우 str.length 값으로 처리
+        → indexStart >= indexEnd 인 경우 마치 두 개의 인자를 바꾼 듯 동작함
+
+    18. String.prototype.split([separator[, limit]])
+        → 전달된 구분자를 이용해 여러 개의 문자열로 나눈 값을 저장한 배열(Array)을 반환
+        → 옵션 separator : 문자열 또는 정규식 가능, 빈 문자열("")을 지정하는 경우 각각의 문자가 배열의 요소 하나로 변환됨
+        → 옵션 limit : 끊어진 문자열의 최대 개수, 배열의 요소가 limit개가 되면 split을 멈춤
+    
+    19. String.prototype.toLowerCase()
+        → 호출 문자열을 소문자로 변환한 새로운 문자열을 반환
+
+    20. String.prototype.toUpperCase()
+        → 호출 문자열을 대문자로 변환한 새로운 문자열을 반환
+    
+    21. String.prototype.trim()
+        → 호출 문자열의 시작과 끝에서 공백이 제거된 새로운 문자열을 반환
+        → 한쪽 끝의 공백만 제거하려면 trimStart() 나 trimEnd() 를 사용
+-->
+<h4>String 내장 객체</h4>
+<script>
+
+  var str = 'JavaScript';
+
+  document.write(`<div>길이 : ${str.length}</div>`);
+
+  document.write(`<div>첫 글자 : ${str.at(0)}</div>`);
+  document.write(`<div>첫 글자 : ${str.charAt(0)}</div>`);
+  document.write(`<div>마지막 글자 : ${str.at(-1)}</div>`);
+  document.write(`<div>마지막 글자 : ${str.charAt(str.length - 1)}</div>`);
+
+  document.write(`<div>첫 번째 소문자 a 의 인덱스 : ${str.indexOf('a')}</div>`);
+  document.write(`<div>마지막  소문자 a 의 인덱스 : ${str.lastIndexOf('a')}</div>`);
+  
+  if(str.startsWith('Java')) {
+    document.write('<div>Java로 시작합니다.</div>');
+  }
+  if(str.endsWith('Script')) { 
+    document.write('<div>Script로 끝납니다.</div>');
+  }
+  
+  const regUpper = /[A-Z]/g;  // 대문자 정규식
+  document.write(`<div>${str.match(regUpper)}</div>`);  // 대문자를 모두 찾아서 배열로 반환
+  document.write(`<div>${str.search(regUpper)}</div>`); // 첫 번째 대문자의 인덱스를 반환
+  
+  document.write(`<div>${str.padStart(15, '*')}</div>`);  // str 의 길이가 15가 되도록 * 를 왼쪽에 채우시오.
+  document.write(`<div>${str.padEnd(15, '*')}</div>`);    // str 의 길이가 15가 되도록 * 를 오른쪽에 채우시오.
+  
+  document.write(`<div>${str.replace('a', 'A')}</div>`);     // 문자열 'a'는 첫 번째 항목만 'A'로 바뀜
+  document.write(`<div>${str.replaceAll('a', 'A')}</div>`);  // 모든 'a'가 'A'로 바뀜
+  
+  document.write(`<div>${str.replace(/[A-Z]/g, 'A')}</div>`);     // 모든 대문자가 'A'로 바뀜
+  document.write(`<div>${str.replaceAll(/[A-Z]/g, 'A')}</div>`);  // 모든 대문자가 'A'로 바뀜
+
+  document.write(`<div>${str.slice(4)}</div>`);         // 인덱스 4부터 끝까지
+  document.write(`<div>${str.slice(0, 4)}</div>`);      // 인덱스 0부터 인덱스 3까지
+  document.write(`<div>${str.substring(4)}</div>`);     // 인덱스 4부터 끝까지
+  document.write(`<div>${str.substring(0, 4)}</div>`);  // 인덱스 0부터 인덱스 3까지
+  document.write(`<div>${str.substr(4)}</div>`);     // 인덱스 4부터 끝까지 (deprecated)
+  document.write(`<div>${str.substr(0, 4)}</div>`);  // 인덱스 0부터 4글자  (deprecated)
+
+  document.write(`<div>${str.slice(-6)}</div>`);        // 인덱스 -6부터(뒤에서 6번째 글자) 끝까지
+  document.write(`<div>${str.slice(-10, -6)}</div>`);   // 인덱스 -10부터 인덱스 -7까지
+
+  var str = 'Jan,Feb,Mar,April,May';
+  var ary = str.split(',');
+  ary.forEach((element, i) => document.write(`<div>인덱스 ${i} : ${element}</div>`));
+
+  document.write(`<div>소문자 : ${str.toLowerCase()}</div>`);
+  document.write(`<div>대문자 : ${str.toUpperCase()}</div>`);
+
+  var str = '  JavaScript  ';
+  document.write(`<div>${str.trim()}, ${str.trim().length}</div>`);
+  document.write(`<div>${str.trimStart()}, ${str.trimStart().length}</div>`);
+  document.write(`<div>${str.trimEnd()}, ${str.trimEnd().length}</div>`);
+
+</script>
+<hr>
+
+<!-- 문제1. yesCheck() 함수 구현하기 -->
+<script>
+  /*
+    yesCheck() 함수
+    1. 기능
+      인자가 'yes', 'Yes', 'YES', 'y', 'Y', '  yes', '  yes' 등 yes 를 의미하면 true 를 반환하는 함수
+    2. 인자
+      문자열 1개
+    3. 반환
+      true 또는 false
+  */
+  const yesCheck = (param) => {
+    const str = param.trim().toLowerCase();
+    return str === 'yes' || str === 'y';
+  }
+  const arr = ['yes', 'Yes', 'YES', 'y', 'Y', 'No', '  yes', '  yes'];
+  arr.forEach((element) => {
+    if(yesCheck(element)) {
+      document.write(`<div>${element}는 yes 입니다.</div>`);
+    } else {
+      document.write(`<div>${element}는 yes 가 아닙니다.</div>`);
+    }
+  })
+</script>
+<hr>
+
+
+
+<!-- 문제2. addCarMaker() 함수 구현하기 -->
+<h4>addCarMaker() 함수</h4>
+<script>
+  /*
+    addCarMaker() 함수
+    1. 기능
+      K로 시작하면 maker: 'Kia', G로 시작하면 maker: 'Genesis'를 전달된 배열의 각 car 객체에 추가하고 Console 에 출력하는 함수
+    2. 인자
+      car 객체가 저장된 배열
+    3. 반환
+      없음
+  */
+  let cars = [
+    { model: 'K3' },
+    { model: 'K5' },
+    { model: 'K8' },
+    { model: 'K9' },
+    { model: 'GV70' },
+    { model: 'G80' },
+    { model: 'GV80' },
+  ]
+  const addCarMaker = (params) => {
+    params
+      .map(car => {
+        var maker;
+        if(car.model.startsWith('K')) {  // car.model.at(0) === 'K'
+          maker = 'Kia';
+        } else if(car.model.startsWith('G')) {
+          maker = 'Genesis';
+        }
+        car.maker = maker;
+        return car;
+      })
+      .forEach(car => console.log(car));
+  }
+  addCarMaker(cars);
+</script>
+<hr>
+
+
+
+<!-- 문제3. change() 함수 구현하기 -->
+<h4>change() 함수</h4>
+<script>
+  /*
+    change() 함수
+    1. 기능
+      전달된 원본의 모든 origin 을 replacement 로 변경한 결과를 반환하는 함수
+    2. 인자
+      1) str         : 원본 문자열
+      2) origin      : 바꾸기 전 문자열
+      3) replacement : 바꾼 뒤 문자열
+    3. 반환
+      모든 origin 을 replacement 로 변경한 결과
+    4. 제한사항
+      이 문제는 연습을 위한 것으로 이미 replace() 와 같은 함수가 JavaScript 에 구현되어 있음을 알고 시작할 것.
+      change() 함수를 구현할 때 반드시 String 의 split(), Array 의 join() 인스턴스 메소드를 모두 사용할 것.
+  */
+  // '192.168.0.210' -> ['192', '168', '0', '210'] -> '192_168_0_210'
+  //              split('.')                   join('_')
+  const change = (str, origin, replacement) => str.split(origin).join(replacement);
+  document.write(change('192.168.0.210', '.', '_'));  // 192_168_0_210
+
+</script>
+<hr>
+
+</body>
+</html>

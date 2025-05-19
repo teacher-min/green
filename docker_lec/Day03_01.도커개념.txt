@@ -1,0 +1,46 @@
+도커
+
+애플리케이션 실행에 필요한 환경
+-> 코드, 런타임, 시스템 도구, 라이브러리 등
+
+도커란?
+-> 애플리케이션 실행에 필요한 환경을 하나의 이미지로 묶어서 만들어 두고
+   해당 이미지를 이용해서 컨테이너를 만들어 애플리케이션을 실행하는 방식
+
+기존 방식  vs  도커
+MySQL 설치     MySQL 이미지
+MySQL 실행     MySQL 컨테이너
+
+도커의 장점
+1. 격리 환경을 제공 - 독립된 실행 환경을 제공 (컨테이너 기반의 오픈소스 가상 플랫폼)
+2. 애플리케이션을 신속하게 실행 (구축, 테스트, 배포)
+
+도커의 컴포넌트
+1. Docker Engine
+  1) Docker Image 생성
+  2) Docker Container 생성
+  3) Docker 명령어 실행
+  4) Dockerfile을 이용한 Docker Image 생성
+2. Docker Registry
+  1) Docker Image 공개 및 공유
+  2) Docker Image 공유 서비스 Docker Hub
+3. Docker Compose
+  1) 여러 Container의 구성 정보를 YAML 형식으로 정의
+  2) 애플리케이션 실행 환경을 구성하는 Container들을 관리하기 위한 툴
+4. Docker Swarm
+  1) Docker Host들을 클러스터로 구축해서 관리할 수 있는 오케스트레이션 도구
+  2) 쿠버네티스가 사실상 Docker Swarm을 대체하였음
+
+Docker 동작 구조
+1. Image를 내려 받는 경우
+Docker Hub -> Image pull -> Create Container -> Run Container
+              -----------------------------------------------  Docker Engine이 담당
+2. Image를 만드는 경우
+Dockerfile -> Make Image -> Create Container -> Run Container
+-------------------------------------------------------------  Docker Engine이 담당
+
+Docker 활용
+1. Docker Image는 하나만 있으면 된다.
+2. Docker Container는 여러 개를 만들 수 있다.
+3. Docker Container는 일회용이다. 
+4. 기능 추가나 변경이 필요하면 Container를 수정하지 않고, Image를 수정한 뒤 Container를 다시 만든다.

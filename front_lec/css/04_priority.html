@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>priority</title>
+  <style>
+    .title {
+      color: teal;
+    }
+    h1 {
+      color: crimson!important;
+    }
+    #title {
+      color: limegreen;
+    }
+  </style>
+</head>
+<body>
+  
+  <!--
+    css 우선 순위
+    낮음                                   높음
+    태그 < 클래스 < 아이디 < inline < !important
+  -->
+
+  <h1 id="title" class="title" style="color: orange">hello world</h1>
+
+</body>
+</html>

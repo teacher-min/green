@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.config.EnableJpaAuditing"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+    <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.configuration.EnableWebSecurity"/>
+    <fullyQualifiedTypeName name="lombok.RequiredArgsConstructor"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="lombok.Getter"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.MappedSuperclass"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.EntityListeners"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.domain.support.AuditingEntityListener"/>
+    <fullyQualifiedTypeName name="org.edu.demo1.api.user.domain.entity.value.RoleInfo"/>
+    <fullyQualifiedTypeName name="org.antlr.v4.runtime.misc.NotNull"/>
+    <fullyQualifiedTypeName name="java.lang.Long"/>
+    <fullyQualifiedTypeName name="org.edu.demo1.api.user.domain.entity.User"/>
+    <fullyQualifiedTypeName name="org.edu.demo1.api.login.exception.LoginException"/>
+</qualifiedTypeNameHistroy>

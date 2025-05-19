@@ -1,0 +1,97 @@
+Docker Container 명령어
+
+
+
+1. 컨테이너 만들기
+
+$ docker container create <이미지명>
+$ docker container create <이미지ID>
+# 컨테이너의 이름을 지정하지 않으면 "형용사_사람이름" 형식의 이름이 랜덤하게 생성됨 (예: kind_jang)
+
+$ docker container create --name <컨테이너명> <이미지명>
+# --name 옵션으로 컨테이너명 지정
+
+------------------------------------------------
+
+2. 컨테이너 목록 보기
+
+$ docker container ls
+$ docker ps      # docker container ls 와 동일
+
+$ docker ps      # 실행 중인 컨테이너만 조회
+$ docker ps -a   # 모든 컨테이너 조회
+$ docker ps -aq  # 모든 컨테이너 ID 조회
+
+------------------------------------------------
+
+3. 컨테이너 시작
+
+$ docker container start <컨테이너명>
+$ docker container start <컨테이너ID>
+
+------------------------------------------------
+
+4. 컨테이너 중지
+
+$ docker container stop <컨테이너명>
+$ docker container stop <컨테이너ID>
+$ docker container stop $(docker ps -aq)  # 모든 컨테이너 일괄 중지
+
+------------------------------------------------
+
+5. 컨테이너 삭제 (중지되어 있는 컨테이너의 삭제만 가능)
+
+$ docker container rm <컨테이너명>
+$ docker container rm <컨테이너ID>
+$ docker container rm $(docker ps -aq)  # 모든 컨테이너 일괄 삭제
+
+------------------------------------------------
+
+6. 이미지 내려 받기 + 컨테이너 만들기 + 컨테이너 시작
+   (docker image pull + docker container create + docker container start)
+
+$ docker container run <이미지명>
+
+$ docker container run -d <이미지명>
+# -d 옵션으로 컨테이너 백그라운드 실행
+
+$ docker container run --name <컨테이너명> <이미지명>
+# --name 옵션으로 컨테이너명 지정
+
+$ docker container run -p <호스트포트번호>:<컨테이너포트번호> <이미지명>
+# -p 옵션으로 호스트포트번호와 컨테이너포트번호 연결
+
+*** VirtualBox의 가상머신으로 컨테이너를 실행하는 경우 ***
+**   $ docker container run -p 9999:8080 tomcat:9.0     **
+**   호스트와 게스트의 포트 포워딩이 추가로 필요함      **
+**   192.168.56.1    9999    10.0.2.15    9999          **
+**********************************************************
+
+$ docker container run -v <호스트디렉터리>:<컨테이너디렉터리> <이미지명>
+# -v 옵션으로 호스트디렉터리와 컨테이너디렉터리를 연결 (바인드 마운트 방식)
+
+$ docker container run -v <도커볼륨>:<컨테이너디렉터리> <이미지명>
+# -v 옵션으로 도커볼륨과 컨테이너디렉터리를 연결 (볼륨 마운트 방식)
+
+$ docker container run -e <환경변수>=<값>
+# -e 옵션으로 환경변수 설정
+
+$ docker container run -rm <이미지명>
+# -rm 옵션으로 컨테이너가 중지되면 바로 컨테이너가 삭제
+
+------------------------------------------------
+
+7. 컨테이너 조작
+
+$ docker container exec -it <컨테이너명> <실행할명령>
+# -it 옵션으로 컨테이너 실행 후 대화형 터미널(주로 bash) 열기
+
+------------------------------------------------
+
+8. 호스트와 컨테이너의 파일 복사
+
+$ docker container cp <컨테이너명>:<컨테이너경로> <호스트경로>
+# 컨테이너 내부의 파일을 호스트로 복사
+
+$ docker container cp <호스트경로> <컨테이너명>:<컨테이너경로>
+# 호스트의 파일을 컨테이너 내부로 복사

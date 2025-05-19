@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+
+<!--
+  React.useState()
+
+  1. 함수 컴포넌트에서 state 를 사용하기 위한 훅(Hooks)입니다.
+  2. 리액트에서는 앞으로 주요 개발 방식으로 useState() 함수를 사용할 것이라고 발표했습니다.
+  3. 형식
+    const [state, setState] = React.useState(initialState)
+    1) state        : state 변수명
+    2) setState     : state 변수값을 변경하는 함수(일반적으로 set + 변수명)
+    3) initialState : state 변수의 초기값
+-->
+
+<div id="root1"></div>
+<script type="text/babel">
+
+  function UseStateComp1() {
+
+    const { useState } = React             // 객체 구조 분해 할당을 이용해 React 객체에서 useState 메소드를 별도로 분리합니다. 이제 React.useState() 대신 useState() 로 호출할 수 있습니다.
+    const [text, setText] = useState('');  // state = { text: '' }
+
+    return (
+      <>
+        <h1>{text}</h1>
+        <button onClick={(e) => {
+          setText(e.target.textContent)
+        }}>장미</button>
+      </>
+    )
+
+  }
+
+  ReactDOM.createRoot(document.getElementById('root1')).render(<UseStateComp1/>)
+
+</script>
+
+<hr/>
+
+<div id="root2"></div>
+<script type="text/babel">
+
+  function UseStateComp2() {
+
+    const { useState } = React;
+
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
+
+    // 서브밋 이벤트 핸들러
+    const onSubmitHandler = (e) => {
+
+      // 아이디나 비밀번호가 입력되지 않았다면 서브밋 취소하기
+      if(id === '' || password === '') {
+        alert('아이디와 비밀번호를 모두 입력해야 합니다.');
+        e.preventDefault();
+        return;
+      }
+
+    }
+
+    return (
+      <form onSubmit={onSubmitHandler}>
+        <input type="text" placeholder="아이디" onChange={(e) => { setId(e.target.value); }} />
+        <br/>
+        <input type="password" placeholder="비밀번호" onChange={(e) => { setPassword(e.target.value); }} />
+        <br/>
+        <button type="submit">제출</button>
+      </form>
+    )
+
+  }
+
+  ReactDOM.createRoot(document.getElementById('root2')).render(<UseStateComp2/>)
+
+</script>
+
+<hr/>
+
+<div id="root3"></div>
+<script type="text/babel">
+  
+  // select 태그로 도시 3개를 등록하고, 선택한 도시를 state 로 저장하고, 화면에 표시하기
+
+  function UseStateComp3() {
+
+    const { useState } = React;
+  
+    const [ city, setCity ] = useState('');
+  
+    const onChangeHandler = (e) => {
+      setCity(e.target.value);
+    }
+  
+    return (
+      <>
+        <select onChange={onChangeHandler}>
+          <option value="">도시선택</option>
+          <option>서울</option>
+          <option>인천</option>
+          <option>속초</option>
+        </select>
+        <div>
+          {city}
+        </div>
+      </>
+    )
+
+  }
+
+  ReactDOM.createRoot(document.getElementById('root3')).render(<UseStateComp3/>);
+
+</script>
+
+</body>
+</html>

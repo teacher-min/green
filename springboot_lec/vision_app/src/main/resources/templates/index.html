@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Google Cloud Vision API</title>
+</head>
+<body>
+
+<div>
+  <h1>이미지 업로드</h1>
+  <form action="/image/recognize" method="post" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/*" required>
+    <br/>
+    <button type="submit">업로드</button>
+  </form>
+</div>
+
+<hr/>
+
+<div>
+  <h1>파일 업로드</h1>
+  <form action="/pdf/recognize" method="post" enctype="multipart/form-data">
+    <input type="file" name="pdf" required>
+    <br/>
+    <button type="submit">업로드</button>
+  </form>
+</div>
+
+</body>
+</html>

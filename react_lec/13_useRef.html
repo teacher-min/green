@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+
+<!--
+  React.useRef()
+
+  1. 렌더링할 때 필요하지 않은 값을 참조할 수 있는 훅(Hooks)입니다.
+  2. useRef()에 의해서 반환된 값은 변경되더라도 리렌더링이 되지 않습니다.
+  3. 형식
+      ref = React.useRef(initialValue)
+    1) 반환
+      (1) 객체를 반환합니다.
+      (2) ref 반환 객체는 단일 프로퍼티 current를 가지고 있고 해당 프로퍼티에 initialValue가 초기값으로 저장됩니다.
+      (3) ref 반환 객체를 JSX 노드의 ref 속성에 전달하면 리액트는 이를 프로퍼티 current에 저장합니다.
+      (4) ref 반환 객체를 변경해도 리렌더링 되지 않습니다.
+    2) 매개변수
+      1) initialValue
+        - ref 반환 객체의 프로퍼티 current에 저장되는 초기값입니다.
+-->
+
+<div id="root1"></div>
+<script type="text/babel">
+
+  function UseRefComp1() {
+    
+    const { useState, useRef } = React;
+
+    const [ number, setNumber ] = useState(0);
+
+    const refNumber = useRef(0);
+
+    return (
+      <>
+
+        {/* state number의 변경은 리렌더링을 유발하므로 곧바로 화면에 변경사항이 나타납니다. */}
+        <button onClick={() => { setNumber(number + 1) }}>number 증가</button>
+        <div>number : {number}</div>
+
+        {/* refNumber 반환 객체는 리렌더링 대상이 아니므로 값이 변경되더라도 화면에 변경사항이 나타나지 않습니다. */}
+        <button onClick={() => { refNumber.current += 1 }}>refNumber 증가</button>
+        <div>refNumber : {refNumber.current}</div>
+
+      </>
+    )
+    
+  }
+
+  // ReactDOM.createRoot(document.getElementById('root1')).render(<UseRefComp1/>);
+
+</script>
+
+<div id="root2"></div>
+<script type="text/babel">
+
+  function UseRefComp2() {
+
+    const { useState, useEffect, useRef } = React;
+
+    const [ text, setText ] = useState('');
+
+    // 초기 inputRef는 없음
+    const inputRef = useRef();
+
+    // 초기 렌더링 시 input 태그에 포커스
+    useEffect(() => {
+      // inputRef.current는 input 태그를 의미함
+      inputRef.current.focus();
+    }, []);
+
+    // 버튼 클릭 시 입력된 text를 경고창으로 출력 후 input 태그에 입력된 text를 지운 다음 input 태그에 포커스
+    const onClickHandler = (e) => {
+      alert(`${text}`);
+      setText('');
+      inputRef.current.focus();
+    }
+
+    return (
+      <>
+        {/* JSX 노드 input 태그에 ref 속성에 inputRef를 전달하면 해당 input 태그가 inputRef 객체가 됩니다. */}
+        <input type="text" value={text} ref={inputRef} onChange={e => setText(e.target.value)}/>
+        <button onClick={onClickHandler}>클릭</button>
+      </>
+    )
+
+  }
+
+  ReactDOM.createRoot(document.getElementById('root2')).render(<UseRefComp2/>);
+
+</script>
+
+</body>
+</html>

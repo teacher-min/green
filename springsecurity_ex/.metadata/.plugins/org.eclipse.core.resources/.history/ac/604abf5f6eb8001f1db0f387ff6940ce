@@ -1,0 +1,5 @@
+package org.edu.demo1.api.common.entity;
+
+public class RegModDt {
+
+}

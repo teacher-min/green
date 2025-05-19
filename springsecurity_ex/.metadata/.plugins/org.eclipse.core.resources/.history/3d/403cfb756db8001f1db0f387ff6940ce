@@ -1,0 +1,5 @@
+package org.edu.demo1.config;
+
+public class SecurityConfig {
+
+}

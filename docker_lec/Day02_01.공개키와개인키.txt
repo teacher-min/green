@@ -1,0 +1,17 @@
+공개키와 개인키
+
+Powershell 실행 후 작업합니다.
+
+1. ssh-keygen 명령으로 공개키(자물쇠)와 개인키(열쇠)를 만듭니다.
+$ ssh-keygen -t rsa -b 2048  # rsa 알고리즘, 2048비트(256바이트) 사용
+# C:\Users\사용자명\.ssh 디렉터리에 공개키와 개인키가 파일로 생성됩니다.
+# 공개키는 id_rsa.pub 입니다.
+# 개인키는 id_rsa 입니다.
+
+2. 공개키는 서버에 저장합니다.
+$ scp C:\Users\사용자명\.ssh\id_rsa.pub <계정명>@<ip주소>:~/.ssh/authorized_keys  # 공개키는 서버의 ~/.ssh/authorized_keys 파일로 저장합니다.
+
+3. 개인키는 개인PC에 저장합니다.
+# MobaXterm 열고 [Edit session] - [Advanced SSH settings] - [Use private key] - C:\Users\사용자명\.ssh\id_rsa 파일을 등록합니다.
+
+이제 더 이상 비밀번호를 입력하지 않아도 접속할 수 있습니다.

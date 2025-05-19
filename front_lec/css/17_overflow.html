@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>overflow</title>
+</head>
+<body>
+  
+  <style>
+    div {
+      width: 300px;
+      height: 200px;
+      border: 1px solid green;
+    }
+    #box1 {
+      overflow: hidden;
+    }
+    #box2 {
+      overflow: scroll;
+    }
+    #box3 {
+      overflow: auto;
+    }
+    #box4 {
+      overflow: visible;
+    }
+  </style>
+
+  <!-- overflow: hidden; (숨김) -->
+  <div id="box1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi augue ipsum, fringilla a lorem sed, consectetur egestas elit. Nullam semper eu enim vitae scelerisque. Nunc accumsan mi lorem, quis congue elit accumsan at. Aenean efficitur mauris et aliquet placerat. Duis dui risus, gravida ac varius a, rhoncus vel nunc. Aenean sit amet pretium tellus. Nulla placerat imperdiet lacus, ac tincidunt orci. Aenean eu eros dignissim, cursus ipsum vitae, interdum dolor. Aenean condimentum eros a mauris sodales mattis. In hac habitasse platea dictumst. Sed egestas tincidunt purus tincidunt sollicitudin. Proin in libero vestibulum, mattis dolor vel, pulvinar dui. Nullam neque magna, feugiat id semper et, aliquet quis odio. Vivamus in dui eu odio ornare porttitor nec eu leo. Mauris egestas viverra ante quis fermentum.
+  </div>
+  <hr>
+
+  <!-- overflow: scroll; (스크롤) -->
+  <div id="box2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi augue ipsum, fringilla a lorem sed, consectetur egestas elit. Nullam semper eu enim vitae scelerisque. Nunc accumsan mi lorem, quis congue elit accumsan at. Aenean efficitur mauris et aliquet placerat. Duis dui risus, gravida ac varius a, rhoncus vel nunc. Aenean sit amet pretium tellus. Nulla placerat imperdiet lacus, ac tincidunt orci. Aenean eu eros dignissim, cursus ipsum vitae, interdum dolor. Aenean condimentum eros a mauris sodales mattis. In hac habitasse platea dictumst. Sed egestas tincidunt purus tincidunt sollicitudin. Proin in libero vestibulum, mattis dolor vel, pulvinar dui. Nullam neque magna, feugiat id semper et, aliquet quis odio. Vivamus in dui eu odio ornare porttitor nec eu leo. Mauris egestas viverra ante quis fermentum.
+  </div>
+  <hr>
+
+  <!-- overflow: auto; (자동) -->
+  <div id="box3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi augue ipsum, fringilla a lorem sed, consectetur egestas elit. Nullam semper eu enim vitae scelerisque. Nunc accumsan mi lorem, quis congue elit accumsan at. Aenean efficitur mauris et aliquet placerat. Duis dui risus, gravida ac varius a, rhoncus vel nunc. Aenean sit amet pretium tellus. Nulla placerat imperdiet lacus, ac tincidunt orci. Aenean eu eros dignissim, cursus ipsum vitae, interdum dolor. Aenean condimentum eros a mauris sodales mattis. In hac habitasse platea dictumst. Sed egestas tincidunt purus tincidunt sollicitudin. Proin in libero vestibulum, mattis dolor vel, pulvinar dui. Nullam neque magna, feugiat id semper et, aliquet quis odio. Vivamus in dui eu odio ornare porttitor nec eu leo. Mauris egestas viverra ante quis fermentum.
+  </div>
+  <hr>
+  
+  <!-- overflow: visible; (디폴트) -->
+  <div id="box4">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi augue ipsum, fringilla a lorem sed, consectetur egestas elit. Nullam semper eu enim vitae scelerisque. Nunc accumsan mi lorem, quis congue elit accumsan at. Aenean efficitur mauris et aliquet placerat. Duis dui risus, gravida ac varius a, rhoncus vel nunc. Aenean sit amet pretium tellus. Nulla placerat imperdiet lacus, ac tincidunt orci. Aenean eu eros dignissim, cursus ipsum vitae, interdum dolor. Aenean condimentum eros a mauris sodales mattis. In hac habitasse platea dictumst. Sed egestas tincidunt purus tincidunt sollicitudin. Proin in libero vestibulum, mattis dolor vel, pulvinar dui. Nullam neque magna, feugiat id semper et, aliquet quis odio. Vivamus in dui eu odio ornare porttitor nec eu leo. Mauris egestas viverra ante quis fermentum.
+  </div>
+  <hr>
+
+  <style>
+    /*
+      overflow: hidden;
+      ┌──────────────────────────┐
+      |  float: left;            |
+      |  ┌────────┐  ┌────────┐  |
+      |  |        |  |        |  |
+      |  └────────┘  └────────┘  |
+      └──────────────────────────┘
+    */
+    .gnb {
+      margin-top: 300px;
+      list-style-type: none;
+      padding: 0;
+      overflow: hidden;
+    }
+    .gnb > li {
+      float: left;
+      padding: 10px;
+      border: 1px solid gray;
+      text-align: center;
+    }
+  </style>
+  <ul class="gnb">
+    <li>정치</li>
+    <li>경제</li>
+    <li>사회</li>
+    <li>생활/문화</li>
+    <li>IT/과학</li>
+  </ul>
+  <div class="content">content</div>
+
+</body>
+</html>

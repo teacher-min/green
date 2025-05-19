@@ -1,0 +1,76 @@
+package org.edu.demo1.api.user.domain.entity;
+
+import org.edu.demo1.api.common.entity.RegModDt;
+import org.edu.demo1.api.user.domain.entity.value.LoginInfo;
+import org.edu.demo1.api.user.domain.entity.value.RoleInfo;
+import org.edu.demo1.api.user.domain.entity.value.UserInfo;
+import org.edu.demo1.api.user.dto.request.UserAddRequestDTO;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE user SET del_yn = true WHERE id = ?")
+@SQLRestriction("del_yn = false")
+public class User extends RegModDt {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Embedded
+    private LoginInfo loginInfo;
+
+    @Embedded
+    private RoleInfo roleInfo;
+
+    @Embedded
+    private UserInfo userInfo;
+
+    private boolean delYn = Boolean.FALSE; // 삭제 여부 기본값 false
+
+    /**
+     * UserAddRequestDTO to User Entity
+     *
+     * @param dto UserAddRequestDTO
+     * @return User Entity
+     */
+    public static User of(UserAddRequestDTO dto) {
+        // Login Info
+        LoginInfo inputLoginInfo = LoginInfo.builder()
+                .userId(dto.getUserId())
+                .password(dto.getPassword())
+                .build();
+
+        // User Info
+        UserInfo inputUserInfo = UserInfo.builder()
+                .name(dto.getName())
+                .tel(dto.getTel())
+                .build();
+
+        // Role Info
+        RoleInfo inputRoleInfo = RoleInfo.builder()
+                .roleName(dto.getRoleName())
+                .build();
+
+        return User.builder()
+                .loginInfo(inputLoginInfo)
+                .userInfo(inputUserInfo)
+                .roleInfo(inputRoleInfo)
+                .build();
+    }
+}

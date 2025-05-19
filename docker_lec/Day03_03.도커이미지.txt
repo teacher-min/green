@@ -1,0 +1,50 @@
+Docker Image 명령어
+
+
+
+1. 이미지 내려 받기
+
+$ docker image pull <레파지토리>/<이미지명>:<태그>
+# <레파지토리> 생략 시 docker.io/library
+# <태그> 생략 시 lastest
+
+$ docker image pull tomcat  # tomcat 이미지 내려 받기
+# 실제 내려 받은 이미지는 docker.io/library/tomcat:latest
+
+$ docker image pull tomcat:9.0  # tomcat 9.0 이미지 내려 받기
+# 실제 내려 받은 이미지는 docker.io/library/tomcat:9.0
+
+------------------------------------------------
+
+2. 이미지 목록 보기
+
+$ docker image ls
+$ docker images
+
+$ docker images -a   # 모든 이미지 조회
+$ docker images -aq  # 모든 이미지 ID 조회
+
+------------------------------------------------
+
+3. 이미지 상세 정보 보기
+
+$ docker image inspect <이미지명>
+$ docker image inspect <이미지ID>
+
+------------------------------------------------
+
+4. 이미지 별명 주기
+
+$ docker image tag <기존이미지명:태그> <별명이미지명:태그>
+# 기존 이미지에 별명만 부여(새로운 이미지가 생기는 것이 아님)
+
+------------------------------------------------
+
+5. 이미지 삭제
+
+$ docker image rm <이미지명>
+$ docker image rm <이미지ID>
+
+# 이미지를 참조하는 Container가 존재하는 경우에는 이미지를 삭제할 수 없음
+
+$ docker image rm $(docker images -aq)  # 모든 이미지를 한 번에 지우는 방법 (모든 이미지 ID를 조회하여 삭제 대상으로 삼는 방식)

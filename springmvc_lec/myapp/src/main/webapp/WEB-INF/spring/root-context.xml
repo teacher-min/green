@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+
+  <!-- HikariConfig -->
+  <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+    <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+    <property name="jdbcUrl"  value="jdbc:mysql://127.0.0.1:3306/db_myapp"/>
+    <property name="username" value="greenit"/>
+    <property name="password" value="greenit"/>
+  </bean>
+  
+  <!-- HikariDataSource -->
+  <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource">
+    <constructor-arg ref="hikariConfig" />
+  </bean>
+  
+  <!-- SqlSessionFactoryBean -->
+  <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="hikariDataSource" />
+    <property name="configLocation"  value="classpath:mybatis/configuration/mybatis-config.xml"/>
+    <property name="mapperLocations" value="classpath:mybatis/mappers/*.xml"/>
+  </bean>
+  
+  <!-- SqlSessionTemplate -->
+  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg ref="sqlSessionFactoryBean"/>
+  </bean>
+
+
+
+  <!-- CommonsMultipartResolver : ?Œì¼ ?…ë¡œ?œë? ?„í•´???¤í”„ë§ì´ ?¸ì¶œ?´ì„œ ?¬ìš©?˜ëŠ” bean. multipartResolver ?´ë¦„?¼ë¡œ ?ì„±?´ì•¼ ?©ë‹ˆ?? -->
+  
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="defaultEncoding" value="UTF-8"/>
+    <property name="maxUploadSizePerFile" value="10485760" />
+    <property name="maxUploadSize" value="104857600"/>
+  </bean>
+
+
+
+  <!-- AOPë¥??´ìš©???¸ëžœ??…˜ ì²˜ë¦¬?˜ê¸° (DataSourceê°€ ?„ìš”?˜ê¸° ?Œë¬¸??root-context.xml?ì„œ ì§„í–‰?©ë‹ˆ?? -->
+  
+  <!-- 1. DataSourceTransactionManager -->
+  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="hikariDataSource" />
+  </bean>
+  
+  <!-- 2. txManagerë¥?Adviceë¡??±ë¡?˜ê¸° -->
+  <tx:advice id="txAdvice" transaction-manager="txManager">
+    <tx:attributes>
+      <tx:method name="*"/>
+      <tx:method name="get*" read-only="true"/>
+    </tx:attributes>
+  </tx:advice>
+  
+  <!-- 3. Adviceê°€ ?™ìž‘??PointCut ?±ë¡?˜ê¸° -->
+  <aop:config>
+    <aop:pointcut expression="execution(* com.min.myapp.service.*Impl.*(..))" id="txPointCut"/>
+    <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+  </aop:config>
+  
+  <!-- 4. AOP ?™ìž‘ (@EnableAspectJAutoProxy) -->
+  <aop:aspectj-autoproxy />
+
+</beans>

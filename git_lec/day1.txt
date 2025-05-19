@@ -1,0 +1,26 @@
+git_lec
+  ㄴlocal1
+
+local1 로컬 레파지토리 만들기
+  - 폴더 만들기
+    mkdir local1
+  - 폴더 이동
+    cd local1
+  - 로컬 레파지토리 만들기
+    git init   (.git 숨김 폴더가 생성된다. 당연히 지우면 안 된다.)
+
+local1 로컬 레파지토리 사용자 등록하기
+  - git config user.name 사용자
+  - git config user.email 이메일
+
+README.md 파일 만들기
+  - echo '# local1' >> README.md
+
+local1 원격 레파지토리 만들어 등록하기
+  - github.com 에서 local1 레파지토리 생성
+  - git remote add origin https://github.com/teacher-mgt/local1.git
+
+add/commit/push 하기
+  - git add README.md  또는 git add .
+  - git commit -m 'create README.md'
+  - git push origin main

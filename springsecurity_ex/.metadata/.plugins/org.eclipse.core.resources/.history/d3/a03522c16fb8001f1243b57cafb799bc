@@ -1,0 +1,14 @@
+package com.jdh.springSecuritySession.api.user.application;
+
+import com.jdh.springSecuritySession.api.user.dto.request.UserAddRequestDTO;
+
+public interface UserAddService {
+
+    /**
+     * 사용자 추가
+     *
+     * @param userAddRequestDTO UserAddRequestDTO
+     */
+    void addUser(UserAddRequestDTO userAddRequestDTO);
+
+}

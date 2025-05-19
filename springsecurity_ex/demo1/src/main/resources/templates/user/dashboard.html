@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용자 대시보드</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .dashboard-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .welcome {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .user-info p {
+            margin: 5px 0;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-account-button {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+        .delete-account-button:hover {
+            background-color: #d32f2f;
+        }
+        .logout-button {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            margin-right: 10px;
+        }
+        .logout-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <h2 class="welcome">환영합니다, [<span th:text="${userInfo.name()}"></span>] 님!</h2>
+    <div class="user-info">
+        <p><strong>아이디:</strong> [<span th:text="${userInfo.userId()}"></span>]</p>
+        <p><strong>이름:</strong> [<span th:text="${userInfo.name()}"></span>]</p>
+        <p><strong>전화번호:</strong> [<span th:text="${userInfo.tel()}"></span>]</p>
+    </div>
+    <button class="delete-account-button" onclick="fn_delete_user()">계정 삭제</button>
+    <button class="logout-button" onclick="fn_logout()">로그아웃</button>
+</div>
+
+<form id="delFrm" name="delFrm" action="/delete" method="post">
+    <input type="hidden" name="id" th:value="${userInfo.id()}">
+</form>
+
+<script>
+    const fn_delete_user = () => {
+        document.getElementById("delFrm").submit();
+    }
+
+    const fn_logout = () => {
+        location.href = "/logout";
+    }
+</script>
+</body>
+</html>
